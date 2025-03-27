@@ -478,7 +478,7 @@ form input:hover, form textarea:hover {
 }
 
 #video-resume video {
-    max-width: 100%; /* Make video responsive */
+    max-width: 50%; /* Make video responsive */
     height: auto;     /* Maintain aspect ratio */
 }
 
