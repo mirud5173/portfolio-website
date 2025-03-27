@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="mode-toggle-container">
+        <img id="mode-toggle" src="dm.png" alt="Toggle Dark Mode" class="mode-icon" style="cursor: pointer;">
+    </div>
+
+
+    <div class="main-content">
+        <nav>
+            <ul>
+                <li><a href="index.html" class="menu-button">Home</a></li>
+                <li><a href="#skills" class="menu-button">Skills</a></li>
+                <li><a href="certifications.html" class="menu-button">Certifications</a></li>
+                <li><a href="resume.html" class="menu-button">Resumé</a></li>
+                <li><a href="#contact" class="menu-button">Contact Me</a></li>
+            </ul>
+        </nav>
+
+        <center>
+            <section id="about-me">
+                <video autoplay muted loop id="background-video">
+                    <source src="light.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <br>
+                <h2 style="font-family: cursive; font-size: 50px;">Hi! This is Mirudhula.</h2>
+                <br>
+                <img src="Miru.jpeg" alt="Mirudhula's Photo" class="circular-image">
+                <div class="two-column">
+                    <div class="left-column">
+                        <br>
+                        <p style="color: rgb(22, 7, 99); font-family:'Times New Roman', Times, serif; font-size:20px;">
+                            <b>Hi there! I'm Mirudhula, a 2nd year student pursuing my B.Tech in CSE(AIML) from VIT Chennai.
+                                I have a strong interest in programming and problem-solving. Currently, I'm exploring AI, ML,
+                                and Web Development.</b>
+                        </p>
+                        <p style="color: rgb(22, 7, 99); font-family:'Times New Roman', Times, serif; font-size:20px;">
+                            <b>When I'm not coding, I enjoy learning new languages and creating games on Godot Game Engine.</b>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </center>
+
+
+        <table id="skills" class="hidden">
+            <tr>
+                <th colspan="5" class="hidden">Skills</th>
+            </tr>
+            <tr>
+                <td><img src="html.png" alt="HTML"></td>
+                <td><img src="css.png" alt="CSS"></td>
+                <td><img src="java.webp" alt="Java"></td>
+                <td><img src="python.webp" alt="Python"></td>
+                <td><img src="c.png" alt="C++"></td>
+            </tr>
+        </table>
+
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <p>Feel free to reach out to me directly through this contact form!</p>
+
+            <form id="contactForm" action="https://formsubmit.co/ajax/mirudhulasankar@gmail.com" method="POST">
+                <fieldset>
+                    <legend>Contact Information</legend>
+
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Write your message here"></textarea>
+
+                    <input type="submit" value="Send Message">
+                </fieldset>
+            </form>
+
+        </section>
+    </div>
+
+    <footer>
+        <a href="https://www.linkedin.com/in/mirudhula-54aa23289/" target="_blank">LinkedIn</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://codeforces.com/profile/mirud1735" target="_blank">CodeForces</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://github.com/mirud5173" target="_blank">Github</a>
+    </footer>
+
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith("#")) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            const text = "Hi! This is Mirudhula.";
+            const heading = document.querySelector("#about-me h2");
+            let index = 0;
+
+            function typeEffect() {
+                if (index < text.length) {
+                    heading.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeEffect, 100);
+                }
+            }
+
+            heading.innerHTML = "";
+            typeEffect();
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const message = document.getElementById("message").value;
+
+                const confirmation = confirm(`Please confirm your details:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}\n\nClick OK to submit or Cancel to edit.`);
+
+                if (confirmation) {
+                    alert("Thank you for contacting me. You'll hear from me soon! 😊");
+                    window.location.href = "index.html";
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const elements = document.querySelectorAll(".hidden");
+
+            function reveal() {
+                elements.forEach((el) => {
+                    const position = el.getBoundingClientRect().top;
+                    if (position < window.innerHeight - 100) {
+                        el.classList.add("visible");
+                    }
+                });
+            }
+
+            window.addEventListener("scroll", reveal);
+            reveal(); // Initial check
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const contactSection = document.getElementById("contact");
+
+            function revealContact() {
+                const position = contactSection.getBoundingClientRect().top;
+                if (position < window.innerHeight - 100) {
+                    contactSection.classList.add("visible");
+                }
+            }
+
+            window.addEventListener("scroll", revealContact);
+            revealContact(); // Initial check
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleButton = document.getElementById("mode-toggle");
+            const body = document.body;
+            const video = document.getElementById("background-video");
+
+            function updateVideo() {
+                if (body.classList.contains("dark-mode")) {
+                    video.src = "nmbg.mp4";
+                } else {
+                    video.src = "light.mp4";
+                }
+                video.load(); // Reload the video
+                video.play(); // Ensure the video plays
+            }
+
+            function updateMode() {
+                if (body.classList.contains("dark-mode")) {
+                    localStorage.setItem("darkMode", "enabled");
+                    toggleButton.src = "lm.png";
+                } else {
+                    localStorage.setItem("darkMode", "disabled");
+                    toggleButton.src = "dm.png";
+                }
+                updateVideo();
+            }
+
+            if (localStorage.getItem("darkMode") === "enabled") {
+                body.classList.add("dark-mode");
+                updateMode();
+            } else {
+                updateMode();
+            }
+
+            toggleButton.addEventListener("click", function() {
+                body.classList.toggle("dark-mode");
+                updateMode();
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const contactForm = document.getElementById("contactForm");
+            const nameInput = document.getElementById("name");
+            const emailInput = document.getElementById("email");
+            const messageInput = document.getElementById("message");
+
+            if (contactForm) {
+                contactForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+
+                    // Basic validation
+                    if (!nameInput.value || !emailInput.value || !messageInput.value) {
+                        alert("Please fill in all fields.");
+                        return;
+                    }
+
+                    // Simulate form submission (replace with your actual submission logic)
+                    console.log("Form data:", {
+                        name: nameInput.value,
+                        email: emailInput.value,
+                        message: messageInput.value
+                    });
+                    alert("Form submitted! (Simulated)");
+                    contactForm.reset();
+                });
+            } else {
+                console.error("Form element with id 'contactForm' not found!");
+            }
+        });
+    </script>
+</body>
+
+</html>
