@@ -483,13 +483,38 @@ form input:hover, form textarea:hover {
 }
 
 #video-resume {
-    width: 95%; /* Make it slightly wider */
-    margin: 10px auto; /* Add margin for spacing, especially top and bottom*/
-    padding: 5px; /* Add padding to the section */
+    margin: 10px auto;
+    padding: 5px;
+}
+
+/* Default width for larger screens */
+#video-resume {
+    width: 80%; /* Adjust as needed */
+}
+
+/* Adjust width for medium-sized screens */
+@media (max-width: 1024px) {
+    #video-resume {
+        width: 90%; /* Adjust as needed */
+    }
+}
+
+/* Adjust width for smaller screens */
+@media (max-width: 768px) {
+    #video-resume {
+        width: 95%; /* Adjust as needed */
+    }
+}
+
+/* Adjust width for very small screens */
+@media (max-width: 480px) {
+    #video-resume {
+        width: 98%; /* Adjust as needed */
+    }
 }
 
 .main-content {
-    padding: 10px; /* Add padding to the main content to add spacing on smaller screens*/
+    padding: 10px;
 }
 
 
