@@ -478,11 +478,18 @@ form input:hover, form textarea:hover {
 }
 
 #video-resume video {
-    max-width: 50%; /* Make video responsive */
-    height: auto;     /* Maintain aspect ratio */
+    max-width: 100%;
+    height: auto;
 }
 
 #video-resume {
-    width: 90%; /* Reduce the width of the section */
-    margin: 0 auto; /* Center the section */
+    width: 95%; /* Make it slightly wider */
+    margin: 10px auto; /* Add margin for spacing, especially top and bottom*/
+    padding: 5px; /* Add padding to the section */
 }
+
+.main-content {
+    padding: 10px; /* Add padding to the main content to add spacing on smaller screens*/
+}
+
+
