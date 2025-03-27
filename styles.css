@@ -476,3 +476,13 @@ form input:hover, form textarea:hover {
         max-width: 40px;
     }
 }
+
+#video-resume video {
+    max-width: 100%; /* Make video responsive */
+    height: auto;     /* Maintain aspect ratio */
+}
+
+#video-resume {
+    width: 90%; /* Reduce the width of the section */
+    margin: 0 auto; /* Center the section */
+}
