@@ -71,6 +71,10 @@
             <p>Feel free to reach out to me directly through this contact form!</p>
 
             <form id="contactForm" action="https://formsubmit.co/ajax/mirudhulasankar@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New contact from your website!">
+                <input type="hidden" name="_autoresponse" value="Thank you for contacting me! I'll get back to you soon.">
+                <input type="hidden" name="_template" value="table">
+                
                 <fieldset>
                     <legend>Contact Information</legend>
 
@@ -83,7 +87,7 @@
                     <label for="message">Message:</label>
                     <textarea id="message" name="message" rows="5" required placeholder="Write your message here"></textarea>
 
-                    <input type="submit" value="Send Message">
+                    <button type="submit" id="submit-btn">Send Message</button>
                 </fieldset>
             </form>
 
@@ -130,25 +134,6 @@
 
             heading.innerHTML = "";
             typeEffect();
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const form = document.querySelector("form");
-
-            form.addEventListener("submit", function(event) {
-                event.preventDefault();
-
-                const name = document.getElementById("name").value;
-                const email = document.getElementById("email").value;
-                const message = document.getElementById("message").value;
-
-                const confirmation = confirm(`Please confirm your details:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}\n\nClick OK to submit or Cancel to edit.`);
-
-                if (confirmation) {
-                    alert("Thank you for contacting me. You'll hear from me soon! 😊");
-                    window.location.href = "index.html";
-                }
-            });
         });
     </script>
 
@@ -228,28 +213,65 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const contactForm = document.getElementById("contactForm");
-            const nameInput = document.getElementById("name");
-            const emailInput = document.getElementById("email");
-            const messageInput = document.getElementById("message");
-
+            const submitBtn = document.getElementById("submit-btn");
+            
             if (contactForm) {
                 contactForm.addEventListener("submit", function(event) {
                     event.preventDefault();
-
+                    
                     // Basic validation
-                    if (!nameInput.value || !emailInput.value || !messageInput.value) {
+                    const name = document.getElementById("name").value;
+                    const email = document.getElementById("email").value;
+                    const message = document.getElementById("message").value;
+                    
+                    if (!name || !email || !message) {
                         alert("Please fill in all fields.");
                         return;
                     }
-
-                    // Simulate form submission (replace with your actual submission logic)
-                    console.log("Form data:", {
-                        name: nameInput.value,
-                        email: emailInput.value,
-                        message: messageInput.value
+                    
+                    // Show confirmation dialog
+                    const confirmation = confirm(`Please confirm your details:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}\n\nClick OK to submit or Cancel to edit.`);
+                    
+                    if (!confirmation) {
+                        return;
+                    }
+                    
+                    // Disable button during submission
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = "Sending...";
+                    
+                    // Actual form submission to FormSubmit.co
+                    fetch(contactForm.action, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            message: message,
+                            _subject: "New contact from your website!",
+                            _autoresponse: "Thank you for contacting me! I'll get back to you soon.",
+                            _template: "table"
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Thank you for contacting me. You'll hear from me soon! 😊");
+                            contactForm.reset();
+                        } else {
+                            throw new Error('Network response was not ok');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("There was an error submitting your form. Please try again later.");
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = "Send Message";
                     });
-                    alert("Form submitted! (Simulated)");
-                    contactForm.reset();
                 });
             } else {
                 console.error("Form element with id 'contactForm' not found!");
